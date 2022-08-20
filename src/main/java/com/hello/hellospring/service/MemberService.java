@@ -3,11 +3,13 @@ package com.hello.hellospring.service;
 
 import com.hello.hellospring.domain.Member;
 import com.hello.hellospring.repository.MemberRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 //@Service
+@Transactional
 public class MemberService {
     // service 명확하게 뭘할지 정해져있으면 interface 안만들어줘도됨
     // interface 서비스 하나에 단일 기능
@@ -30,9 +32,9 @@ public class MemberService {
         // 같은 이름이 있는 중복 회원은 안됨
         // command + option + v : 변수 이름 추출하기
         validateDuplicateMember(member);
-
         memberRepository.save(member);
         return member.getId();
+
     }
 
     private void validateDuplicateMember(Member member) {
@@ -51,7 +53,9 @@ public class MemberService {
      * @return
      */
     public List<Member> findMembers() {
+
         return memberRepository.findAll();
+
     }
 
     public Optional<Member> findOne(Long memberId) {
